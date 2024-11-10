@@ -44,6 +44,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MoneyInput } from "./money-input";
 import { DatePicker } from "./ui/date-picker";
 import { upsertTransaction } from "../_actions/upsert-transaction";
+import { useEffect } from "react";
 
 interface UpsertTransactionDialogProps {
   isOpen: boolean;
@@ -97,6 +98,11 @@ const UpsertTransactionDialog = ({
     },
   });
 
+  // REVISAR
+
+  useEffect(() => {
+    form.reset(defaultValues);
+  }, [defaultValues, form]);
   const onSubmit = async (data: FormSchema) => {
     try {
       await upsertTransaction({ ...data, id: transactionId });
